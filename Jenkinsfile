@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', 
+                git branch: 'master', 
                 url: 'https://github.com/Fadwa-Meri/Online-Bookstore-App-Java.git'
             }
         }
