@@ -1,4 +1,4 @@
-pipeline {
+i,pipeline {
     agent any
     tools {
         maven 'Maven 3.9.9'
@@ -72,12 +72,12 @@ pipeline {
         failure {
             emailext body: 'Build failed: ${BUILD_URL}', 
                      subject: 'Build Failed: ${JOB_NAME} - Build #${BUILD_NUMBER}', 
-                     to: 'admin@example.com'
+                     to: 'yasmine.benbari@esi.ac.ma'
         }
         unstable {
             emailext body: 'Build unstable: ${BUILD_URL}', 
                      subject: 'Build Unstable: ${JOB_NAME} - Build #${BUILD_NUMBER}', 
-                     to: 'admin@example.com'
+                     to: 'yasmine.benbari@esi.ac.ma'
         }
     }
 }
