@@ -72,12 +72,12 @@ i,pipeline {
         failure {
             emailext body: 'Build failed: ${BUILD_URL}', 
                      subject: 'Build Failed: ${JOB_NAME} - Build #${BUILD_NUMBER}', 
-                     to: 'yasmine.benbari@esi.ac.ma'
+                     to: 'yasmine.ben-bari@esi.ac.ma'
         }
         unstable {
             emailext body: 'Build unstable: ${BUILD_URL}', 
                      subject: 'Build Unstable: ${JOB_NAME} - Build #${BUILD_NUMBER}', 
-                     to: 'yasmine.benbari@esi.ac.ma'
+                     to: 'yasmine.ben-bari@esi.ac.ma'
         }
     }
 }
