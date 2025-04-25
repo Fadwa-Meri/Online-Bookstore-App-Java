@@ -28,7 +28,7 @@ pipeline {
         
         stage('Unit Tests') {
             steps {
-                bat "mvn test ${TEST_OPTS}"
+                bat "mvn clean ${TEST_OPTS}"
             }
             post {
                 always {
