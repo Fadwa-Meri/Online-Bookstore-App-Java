@@ -25,7 +25,6 @@ pipeline {
             }
         }
         
-        /*
         stage('Unit Tests') {
             steps {
                 bat "mvn clean ${TEST_OPTS}"
@@ -36,7 +35,7 @@ pipeline {
                 }
             }
         }
-        */
+        
         
         stage('Code Coverage') {
             steps {
