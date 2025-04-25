@@ -4,13 +4,10 @@ pipeline {
         MAVEN_OPTS = "--add-opens jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"
         TEST_OPTS = "-DskipTests=false -Dmaven.test.skip=false"
         ANALYSIS_OPTS = "-Dcheckstyle.skip=false -Dpmd.skip=false -Dspotbugs.skip=false"
-        NEXUS_URL = "http://localhost:8082" 
-        NEXUS_REPO = "maven-releases"
-        NEXUS_CREDS = credentials('nexus-creds') 
     }
     tools {
         maven 'Maven 3.9.9'
-        jdk 'JDK17'
+        jdk 'JDK17' 
     }
     stages {
         stage('Checkout') {
@@ -30,7 +27,7 @@ pipeline {
         
         stage('Unit Tests') {
             steps {
-                bat "mvn test ${TEST_OPTS}"
+                bat "mvn clean ${TEST_OPTS}"
             }
             post {
                 always {
@@ -41,7 +38,7 @@ pipeline {
         
         stage('Code Coverage') {
             steps {
-                bat "mvn org.jacoco:jacoco-maven-plugin:prepare-agent test"
+                bat "mvn org.jacoco:jacoco-maven-plugin:prepare-agent test ${TEST_OPTS}"
                 bat "mvn org.jacoco:jacoco-maven-plugin:report"
             }
             post {
@@ -78,7 +75,7 @@ pipeline {
         
         stage('Package') {
             steps {
-                bat "mvn package -DskipTests"
+                bat "mvn package -DskipTests=true"
             }
         }
         
@@ -87,23 +84,14 @@ pipeline {
                 expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
             }
             steps {
-                configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
-                    bat """
-                        mvn -s %MAVEN_SETTINGS% deploy:deploy-file \
-                        -Durl=${NEXUS_URL}/repository/${NEXUS_REPO} \
-                        -DrepositoryId=nexus \
-                        -Dfile=target/*.jar \
-                        -DpomFile=pom.xml \
-                        -DskipTests
-                    """
-                }
+                bat "mvn deploy -DskipTests=true"
             }
         }
     }
     post {
         always {
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            cleanWs()
+            cleanWs() 
         }
         failure {
             emailext body: '''Build failed: ${BUILD_URL}
