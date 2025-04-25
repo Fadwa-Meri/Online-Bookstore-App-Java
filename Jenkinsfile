@@ -20,7 +20,7 @@ pipeline {
         
         stage('Unit Tests') {
             steps {
-                bat 'mvn test'
+                bat 'mvn test -Dmaven.test.force=true'
             }
             post {
                 always {
