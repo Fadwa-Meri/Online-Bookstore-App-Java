@@ -30,13 +30,11 @@ pipeline {
             steps {
                 bat "mvn clean ${TEST_OPTS}"
             }
-            /*
             post {
                 always {
                     junit '**/surefire-reports/*.xml'
                 }
             }
-            */
         }
         
         stage('Code Coverage') {
