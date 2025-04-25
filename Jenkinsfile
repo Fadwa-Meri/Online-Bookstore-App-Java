@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        MAVEN_OPTS = "--add-opens jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"
+    }
     tools {
         maven 'Maven 3.9.9'
         jdk 'JDK17'
