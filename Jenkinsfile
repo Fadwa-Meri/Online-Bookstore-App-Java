@@ -22,7 +22,7 @@ pipeline {
         
         stage('Build') {
             steps {
-                bat "mvn clean compile -Dmaven.compiler.release=17"
+                bat "mvn clean -Dmaven.compiler.release=17"
             }
         }
         
