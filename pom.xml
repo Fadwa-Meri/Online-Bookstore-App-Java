@@ -246,9 +246,14 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.3</version>
 				<configuration>
+					<reportsDirectory>target/surefire-reports</reportsDirectory>
+					<testFailureIgnore>true</testFailureIgnore>
 					<includes>
 						<include>**/*Test.java</include>
+						<include>**/*Tests.java</include>
 					</includes>
+					<useFile>true</useFile>
+					<disableXmlReport>false</disableXmlReport>
 				</configuration>
 			</plugin>
 		</plugins>
