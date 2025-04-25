@@ -84,7 +84,17 @@ pipeline {
                 expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
             }
             steps {
-                bat "mvn deploy -DskipTests=true"
+                // Configuration du settings.xml pour Nexus
+                configFileProvider([configFile(fileId: 'maven-settings', variable: 'MAVEN_SETTINGS')]) {
+                    bat """
+                        mvn -s %MAVEN_SETTINGS% deploy:deploy-file \
+                        -Durl=${NEXUS_URL}/repository/${NEXUS_REPO} \
+                        -DrepositoryId=nexus \
+                        -Dfile=target/*.jar \
+                        -DpomFile=pom.xml \
+                        -DskipTests
+                    """
+                }
             }
         }
     }
