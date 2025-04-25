@@ -246,7 +246,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.3</version>
 				<configuration>
-					<reportsDirectory>Online-Bookstore-App-Java/surefire-reports</reportsDirectory>
+					<reportsDirectory>target/surefire-reports</reportsDirectory>
 					<testFailureIgnore>true</testFailureIgnore>
 					<includes>
 						<include>**/*Test.java</include>
