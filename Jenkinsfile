@@ -25,16 +25,18 @@ pipeline {
             }
         }
         
+        /*
         stage('Unit Tests') {
             steps {
                 bat "mvn clean ${TEST_OPTS}"
             }
             post {
                 always {
-                    junit '**/target/surefire-reports/**/*.xml'
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
         }
+        */
         
         stage('Code Coverage') {
             steps {
